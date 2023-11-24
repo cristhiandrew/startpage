@@ -8,7 +8,9 @@ window.onload = function() {
       var sec = now.getSeconds();
       var mid = 'pm';
      
-    document.getElementById('currentTime').innerHTML =     hour+' : '+min;
+      min = min < 10 ? '0' + min : min;
+      sec = sec < 10 ? '0' + sec : sec;
+      document.getElementById('currentTime').innerHTML = hour + ' : ' + min;
       setTimeout(clock, 1000);
       }
   }

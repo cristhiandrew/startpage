@@ -28,6 +28,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow-x: hidden;
 }
 .relojito {
   font-size: 1,5rem;

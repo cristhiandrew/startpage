@@ -1,45 +1,20 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./main-themes/orange/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;display=swap"
+      rel="stylesheet"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Startpage</title>
-  </head>
- 
+    <title>Lawliet</title>
+  </head>  
 
   <body>
-
-    <header class="spotifyWidget">
-      <img id="imagenCancion" src="https://galoputo.vercel.app/api?theme=dark" alt="Portada de la canción">
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-            <script>
-                // Función para actualizar la imagen
-                function actualizarImagen() {
-                    // Seleccionamos la imagen por su ID
-                    var imagen = document.getElementById('imagenCancion');
-            
-                    // Añadimos un parámetro de consulta único para forzar la recarga
-                    imagen.src = "https://galoputo.vercel.app/api?theme=dark&timestamp=" + new Date().getTime();
-                }
-            
-                // Función para actualizar la imagen cada cierto tiempo (por ejemplo, cada 5 segundos)
-                function actualizarImagenPeriodicamente() {
-                    setInterval(function() {
-                        actualizarImagen();
-                    }, 5000); // 5000 milisegundos = 5 segundos
-                }
-            
-                // Llamamos a la función para iniciar la actualización periódica
-                actualizarImagenPeriodicamente();
-            </script>
-    </header>
+    <div>
+      <img id="imagenCancion"  alt="Portada de la canción">
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+       </div>  
     <nav class="navbar">
       <div class="navbar-container container">
         <div><h3 id="currentTime" class="relojito"></h3></div>
@@ -54,29 +29,23 @@
           <li><a onclick="changeCSS('cherry',0)">cherry</a></li>
           <li><a onclick="changeCSS('violet',0)">violet</a></li>
           <li><a onclick="changeCSS('green',0)">green</a></li>
-          <li><a onclick="changeCSS('mesh-purple',0)">mesh-purple</a></li>
           <li><a onclick="changeCSS('orange',0)">wine</a></li>
           <li><a onclick="changeCSS('purple',0)">purple</a></li>
           <li><a onclick="changeCSS('white',0)">white</a></li>
           <li><a onclick="changeCSS('retro-gradient',0)">retro-gradient</a></li>
           <li><a onclick="changeCSS('summer-wave',0)">summer-wave</a></li>
-          <li>
-            <a onclick="changeCSS('Animated-Gradient',0)">animated-gradient</a>
+          <li><a onclick="changeCSS('mesh-purple',0)">mesh-purple</a></li>
+          <li><a onclick="changeCSS('Animated-Gradient',0)">animated-gradient</a>
           </li>
         </ul>
-      </div>
-      
+      </div>      
     </nav>
     <div class="wrapper">
       <div class="bg"></div>
       <div class="maincard">
         <div class="content">
           <div class="image">
-            <img
-              id="img"
-              src="./main-themes/orange/images/gif.gif"
-              alt="No image"
-            />
+            <img id="img"src="./main-themes/orange/images/gif.gif" alt="No image"/>
           </div>
           <div id="links" class="links">
             <section>
@@ -118,22 +87,17 @@
         <div class="search">
           <form onsubmit="return search()">
             <label for="search_box" autofocus>> find / </label>
-            <input
-              type="text"
-              placeholder="Type Here"
-              name="search_box"
-              id="search_box"
-              autocomplete="off"
-              autofocus
-            />
+            <input type="text" placeholder="Type Here" name="search_box" id="search_box" autocomplete="off" autofocus/>
           </form>
         </div>
       </div>
-    </div>
-    
+    </div>    
   </body>
   <script>
     let theme = localStorage.getItem("selected-theme");
+    var color = theme;
+    console.log(color);
+    imagenCancion.src="https://galoputo.vercel.app/api?theme="+color;
     if (theme) {
       let selectedTheme = document.createElement("link");
       selectedTheme.setAttribute("rel", "stylesheet");
@@ -150,6 +114,7 @@
 
     function changeCSS(cssFile, cssLinkIndex) {
       console.log("Onclick working");
+      var imagenCancion = document.getElementById("imagenCancion");
       var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
       var newlink = document.createElement("link");
       newlink.setAttribute("rel", "stylesheet");
@@ -160,8 +125,9 @@
         .getElementsByTagName("head")
         .item(cssLinkIndex)
         .replaceChild(newlink, oldlink);
-      // console.log(newlink);
       localStorage.setItem("selected-theme", cssFile);
+      imagenCancion.src = "https://galoputo.vercel.app/api?theme=" + cssFile;
+      color = cssFile;
     }
     function changeImgSrc(cssFile) {
       var img_bar = document.getElementById("img");
@@ -173,7 +139,6 @@
     function search() {
       const is_url = /^(((http)|(https)):\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]+\/?([a-zA-Z0-9/?=&%-_]+)?$/;
       const is_ip = /^(((http)|(https)):\/\/)?([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}|localhost)(:[0-9]{1,5})?(\/[a-zA-Z0-9/?=&%-_]+)?$/;
-
       const search_term = document.getElementById("search_box").value;
       const url_match = search_term.match(is_url);
       const ip_match = search_term.match(is_ip);
@@ -189,16 +154,25 @@
     }
     function openSpotify() {
             var spotifyURI = 'spotify:';
-            
-            
             window.location.href = spotifyURI;
-            
         }
 
     function openDiscord() {
             var discordURI = 'discord:'
             window.location.href = discordURI;
     }
+    function actualizarImagen() {
+          
+          var imagen = document.getElementById('imagenCancion');
+          imagen.src = "https://galoputo.vercel.app/api?theme="+color+ "&timestamp" + new Date().getTime();
+        }
+  
+        function actualizarImagenPeriodicamente() {
+          setInterval(function () {
+            actualizarImagen();
+          }, 5000);
+        }
+        actualizarImagenPeriodicamente();
 
   </script>
   <script type="text/javascript" src="components/clock/clock.js"></script>
